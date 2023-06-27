@@ -84,7 +84,7 @@ private  fun loadFragment(fragment: Fragment) {
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {}
-            override fun onResponse(call: Call, response: Response) = println(response.body()?.string())
+            override fun onResponse(call: Call, response: Response) = println(response.body?.string())
         })
     }
 }

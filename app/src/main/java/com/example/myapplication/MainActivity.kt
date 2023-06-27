@@ -14,6 +14,8 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.databinding.ActivityMainBinding
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -98,6 +100,8 @@ class MainActivity : AppCompatActivity(),View.OnClickListener {
             layout.dismiss()
         }
         layout.showAtLocation(main,Gravity.BOTTOM,0,0)
+
+
     }
 
 }

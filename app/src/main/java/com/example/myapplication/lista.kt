@@ -4,56 +4,80 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
+import okhttp3.*
+import java.io.IOException
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class lista :Fragment() {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [lista.newInstance] factory method to
- * create an instance of this fragment.
- */
-class lista : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: PropertyAdapter
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_lista, container, false)
+        val root= inflater.inflate(R.layout.fragment_lista, container, false)
+        recyclerView =root.findViewById(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+
+        adapter = PropertyAdapter()
+        recyclerView.adapter = adapter
+        return root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment lista.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            lista().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+        val url = "https://api.idealista.com/3.5/es/search"
+        val requestBody = FormBody.Builder()
+            .add("center", "40.42938099999995,-3.7097526269835726")
+            .add("country", "es")
+            .add("maxItems", "50")
+            .add("numPage", "1")
+            .add("distance", "452")
+            .add("propertyType", "bedrooms")
+            .add("operation", "rent")
+            .build()
+
+        val client = OkHttpClient()
+
+        val request = Request.Builder()
+            .url(url)
+            .addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzY29wZSI6WyJyZWFkIl0sImV4cCI6MTY4NzkwNzkwNCwiYXV0aG9yaXRpZXMiOlsiUk9MRV9QVUJMSUMiXSwianRpIjoiMWY0ZThkZmQtZGZhZS00MDZmLWFiMmItZGJlN2Y3NTJjZTg1IiwiY2xpZW50X2lkIjoiaGs0anZrMzNmcnRieTE3d25qdzdndGFjOGU3ZXJpcGkifQ.pBjQPpgO3wgiGfyeSj7Is_8z0my2Cpa_B0KmEd1eYLg")
+            .post(requestBody)
+            .build()
+
+        client.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                // Gestisci l'errore di connessione
             }
+
+            override fun onResponse(call: Call, response: Response) {
+                val responseBody = response.body?.string()
+
+                val gson = Gson()
+
+                val property: Property = gson.fromJson(responseBody, Property::class.java)
+
+                val elementList: List<Element> = property.elementList
+
+                activity?.runOnUiThread{
+                    adapter.setElements(elementList)
+                }
+
+            }
+        })
+
+
+
     }
 }

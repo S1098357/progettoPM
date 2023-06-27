@@ -1,0 +1,116 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="122dp"
+    android:orientation="horizontal"
+    android:background="@drawable/ombreggiatura">
+
+    <LinearLayout
+        android:layout_width="358dp"
+        android:layout_height="121dp"
+        android:foregroundTint="#501E1E"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="408dp"
+            android:layout_height="85dp"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="98dp"
+                android:layout_height="85dp">
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="98dp"
+                    android:layout_height="85dp"
+                    android:src="@drawable/baseline_home_24" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="85dp"
+                android:gravity="bottom"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/addressTextView"
+                        android:layout_width="260dp"
+                        android:layout_height="51dp"
+                        android:layout_weight="1"
+                        android:gravity="bottom"
+                        android:text="città, via , indirizzo, distanza dall'uni"
+                        android:textAlignment="viewStart"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/priceTextView"
+                    android:layout_width="262dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="bottom"
+                    android:text="Prezzo€      "
+                    android:textAlignment="textEnd"
+                    android:textColor="#0C21A5"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/roomsTextView"
+                android:layout_width="237dp"
+                android:layout_height="36dp"
+                android:layout_weight="1"
+                android:text="Proprietario, contatti, num inquilini"
+                android:textAlignment="textStart"
+                android:textColor="#4D7298"
+                android:textSize="15sp"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/propertyTypeTextView"
+                android:layout_width="117dp"
+                android:layout_height="36dp"
+                android:layout_weight="1"
+                android:text="Proprietario, contatti, num inquilini"
+                android:textAlignment="center"
+                android:textColor="#4D7298"
+                android:textSize="15sp"
+                android:textStyle="italic"
+                app:layout_constraintEnd_toStartOf="@+id/propertyTypeTextView"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/imageButton11"
+        android:layout_width="wrap_content"
+        android:layout_height="112dp"
+        android:layout_weight="1"
+        android:background="#FFFFFF"
+        android:src="@drawable/baseline_keyboard_arrow_right_24" />
+</LinearLayout>
