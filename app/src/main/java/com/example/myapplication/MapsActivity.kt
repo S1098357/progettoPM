@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.app.Activity
 import android.app.DownloadManager
 import android.app.VoiceInteractor
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
@@ -46,23 +47,29 @@ class MapsActivity : AppCompatActivity(){
 
     private lateinit var bottomNav: BottomNavigationView
 
-    private val client = OkHttpClient()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.barra)
 
-        run("https://api.idealista.com/3.5/it/search")
-
+        val intent= intent
+        if (intent.getStringArrayExtra("info")!=null){
+            val prova=intent.getStringArrayExtra("info")!!
+            val lista=lista.newInstance(prova)
+            loadFragment(lista)
+        }
         bottomNav=findViewById(R.id.bottom_navigation_view)
         val navigationController=findNavController(R.id.nav_fragment)
         bottomNav.setupWithNavController(navigationController)
         bottomNav.setOnItemSelectedListener{
 
             when(it.itemId){
-                R.id.mappa->  loadFragment(mappa())
-                R.id.lista->loadFragment(lista())
+                R.id.mappa->loadFragment(mappa())
+                R.id.lista->{
+                    val prova=intent.getStringArrayExtra("info")!!
+                    val lista=lista.newInstance(prova)
+                    loadFragment(lista)
+                }
                 R.id.preferiti->loadFragment(preferiti())
                 R.id.messaggi->loadFragment(Chat())
                 R.id.account->loadFragment(account())
@@ -71,20 +78,11 @@ class MapsActivity : AppCompatActivity(){
             true
         }
     }
+
 private  fun loadFragment(fragment: Fragment) {
     val transaction = supportFragmentManager.beginTransaction()
     transaction.replace(R.id.nav_fragment, fragment)
     transaction.commit()
 }
 
-    fun run(url: String) {
-        val request = Request.Builder()
-            .url(url)
-            .build()
-
-        client.newCall(request).enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {}
-            override fun onResponse(call: Call, response: Response) = println(response.body?.string())
-        })
-    }
 }

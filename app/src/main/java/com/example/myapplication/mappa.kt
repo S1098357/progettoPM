@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Intent
 import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
@@ -37,6 +38,7 @@ class mappa : Fragment(), OnMapReadyCallback{
     lateinit var button: TextView
     lateinit var main: LinearLayout
     lateinit var numInquilini :ImageButton
+    lateinit var info:Array<String>
 
 
     override fun onCreateView(
@@ -90,6 +92,7 @@ class mappa : Fragment(), OnMapReadyCallback{
         })
         mapFragment.getMapAsync(this)
 
+        info=Array(3){""}
         button.setOnClickListener(object : View.OnClickListener {
             override fun onClick (view:View?) {
                 val layout = PopupWindow(context)
@@ -101,6 +104,9 @@ class mappa : Fragment(), OnMapReadyCallback{
                 val prezzo = filtri.findViewById<TextView>(R.id.prezzo)
                 seek.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                     override fun onStopTrackingTouch(p0: SeekBar?) {
+                        val stringa=prezzo.text.toString()
+                        stringa.removeSuffix(" €")
+                        info[0]=stringa
                     }
 
                     override fun onProgressChanged(
@@ -108,7 +114,7 @@ class mappa : Fragment(), OnMapReadyCallback{
                         progress: Int,
                         p2: Boolean
                     ) {
-                        var stringaPrezzo = progress.toString() + " €"
+                        val stringaPrezzo = progress.toString() + " €"
                         prezzo.text = stringaPrezzo
 
                     }
@@ -117,10 +123,13 @@ class mappa : Fragment(), OnMapReadyCallback{
 
                     }
                 })
-                var distanza = filtri.findViewById<TextView>(R.id.distanza)
+                val distanza = filtri.findViewById<TextView>(R.id.distanza)
                 val seek2 = filtri.findViewById<SeekBar>(R.id.seekBar3)
                 seek2.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                     override fun onStopTrackingTouch(p0: SeekBar?) {
+                        val stringa=distanza.text.toString()
+                        stringa.removeSuffix(" Km")
+                        info[1]=stringa
                     }
 
                     override fun onProgressChanged(
@@ -138,20 +147,47 @@ class mappa : Fragment(), OnMapReadyCallback{
                 })
 
                 val popupMenu = PopupMenu(context,numInquilini)
-                var numScelto=view.findViewById<TextView>(R.id.numScelto)
+                val numScelto=view.findViewById<TextView>(R.id.numScelto)
                 popupMenu.menuInflater.inflate(R.menu.menu,popupMenu.menu)
                 popupMenu.setOnMenuItemClickListener {
                     val id=it.itemId
                     when(id){
-                        R.id.menu_item_1->numScelto.text=" 1"
-                        R.id.menu_item_2->numScelto.text=" 2"
-                        R.id.menu_item_3->numScelto.text=" 3"
-                        R.id.menu_item_4->numScelto.text=" 4"
-                        R.id.menu_item_5->numScelto.text=" 5"
-                        R.id.menu_item_6->numScelto.text=" 6"
-                        R.id.menu_item_7->numScelto.text=" 7"
-                        R.id.menu_item_8->numScelto.text=" 8"
-                        R.id.menu_item_9->numScelto.text=" 9"
+                        R.id.menu_item_1->{
+                            numScelto.text=" 1"
+                            info[2]="1"
+                        }
+                        R.id.menu_item_2->{
+                            numScelto.text=" 2"
+                            info[2]="2"
+                        }
+                        R.id.menu_item_3->{
+                            numScelto.text=" 3"
+                            info[2]="3"
+                        }
+                        R.id.menu_item_4->{
+                            numScelto.text=" 4"
+                            info[2]="4"
+                        }
+                        R.id.menu_item_5->{
+                            numScelto.text=" 5"
+                            info[2]="5"
+                        }
+                        R.id.menu_item_6->{
+                            numScelto.text=" 6"
+                            info[2]="6"
+                        }
+                        R.id.menu_item_7->{
+                            numScelto.text=" 7"
+                            info[2]="7"
+                        }
+                        R.id.menu_item_8->{
+                            numScelto.text=" 8"
+                            info[2]="8"
+                        }
+                        R.id.menu_item_9->{
+                            numScelto.text=" 9"
+                            info[2]="9"
+                        }
                     }
                     false
                 }
@@ -159,6 +195,9 @@ class mappa : Fragment(), OnMapReadyCallback{
                 val applica=filtri.findViewById<Button>(R.id.applica)
                 applica.setOnClickListener{
                     layout.dismiss()
+                    val intent= Intent(context, MapsActivity::class.java)
+                    intent.putExtra("info",info)
+                    startActivity(intent)
                 }
 
                 layout.animationStyle= R.style.Animation

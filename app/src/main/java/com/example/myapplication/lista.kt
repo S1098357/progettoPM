@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,7 @@ class lista :Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PropertyAdapter
+    private lateinit var info:Array<String>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,12 +74,28 @@ class lista :Fragment() {
 
                 activity?.runOnUiThread{
                     adapter.setElements(elementList)
+                    Toast.makeText(context,info.toString(),Toast.LENGTH_SHORT).show()
                 }
 
             }
         })
 
+    }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        arguments?.getStringArray("info")?.let {
+            info = it
+        }
+    }
 
+    companion object {
+        @JvmStatic
+        fun newInstance(info: Array<String>) =
+            lista().apply {
+                arguments = Bundle().apply {
+                    putStringArray("info", info)
+                }
+            }
     }
 }
