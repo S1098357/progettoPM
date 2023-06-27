@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "626256193380",
+    "project_id": "unifind-53d53",
+    "storage_bucket": "unifind-53d53.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:626256193380:android:1096bb422e565e1fc6bc71",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "626256193380-5tsl09bq3ss6rg0m77h2p4dv7d6h8csr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIiJ-Sm9nVqB5WsjCG8dWoQF9q8LQt0Co"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "626256193380-5tsl09bq3ss6rg0m77h2p4dv7d6h8csr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

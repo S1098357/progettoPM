@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="mappa"
+        android:id="@+id/mappa"
+        android:icon="@drawable/baseline_map_24"/>
+    <item android:title="lista"
+        android:id="@+id/lista"
+        android:icon="@drawable/baseline_list_alt_24"/>
+    <item android:title="preferiti"
+        android:id="@+id/preferiti"
+        android:icon="@drawable/baseline_favorite_24"/>
+    <item android:title="messaggi"
+        android:id="@+id/messaggi"
+        android:icon="@drawable/baseline_message_24"/>
+    <item android:title="account"
+        android:id="@+id/account"
+        android:icon="@drawable/baseline_account_circle_24"/>
+</menu>
