@@ -66,9 +66,13 @@ class MapsActivity : AppCompatActivity(){
             when(it.itemId){
                 R.id.mappa->loadFragment(mappa())
                 R.id.lista->{
-                    val prova=intent.getStringArrayExtra("info")!!
-                    val lista=lista.newInstance(prova)
-                    loadFragment(lista)
+                    if (intent.getStringArrayExtra("info")==null) {
+                        Toast.makeText(this,"Per entrare in questa sezione eseguire prima una richiesta dalla mappa",Toast.LENGTH_LONG).show()
+                    }else {
+                        val prova=intent.getStringArrayExtra("info")!!
+                        val lista=lista.newInstance(prova)
+                        loadFragment(lista)
+                    }
                 }
                 R.id.preferiti->loadFragment(preferiti())
                 R.id.messaggi->loadFragment(Chat())

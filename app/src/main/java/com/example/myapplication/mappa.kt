@@ -56,6 +56,7 @@ class mappa : Fragment(), OnMapReadyCallback{
         super.onViewCreated(view, savedInstanceState)
         val mapFragment :SupportMapFragment=childFragmentManager.findFragmentById(R.id.cartina) as SupportMapFragment
         binding2 = BarraBinding.inflate(layoutInflater)
+        info=Array(5){""}
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -77,6 +78,10 @@ class mappa : Fragment(), OnMapReadyCallback{
                             Toast.makeText(context,"La località inserita non è valida",Toast.LENGTH_SHORT).show()
                         }else {
                             val address: Address = addressList[0]
+                            info[3]=address.latitude.toString()
+                            Toast.makeText(context,info[3],Toast.LENGTH_LONG).show()
+                            info[4]=address.longitude.toString()
+                            Toast.makeText(context,info[4],Toast.LENGTH_LONG).show()
                             val latLng = LatLng(address.latitude, address.longitude)
                             mMap.addMarker(MarkerOptions().position(latLng).title(location))
                             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10F))
@@ -92,7 +97,6 @@ class mappa : Fragment(), OnMapReadyCallback{
         })
         mapFragment.getMapAsync(this)
 
-        info=Array(3){""}
         button.setOnClickListener(object : View.OnClickListener {
             override fun onClick (view:View?) {
                 val layout = PopupWindow(context)
@@ -105,8 +109,8 @@ class mappa : Fragment(), OnMapReadyCallback{
                 seek.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                     override fun onStopTrackingTouch(p0: SeekBar?) {
                         val stringa=prezzo.text.toString()
-                        stringa.removeSuffix(" €")
-                        info[0]=stringa
+                        val prezzoS=stringa.removeSuffix(" €")
+                        info[0]=prezzoS
                     }
 
                     override fun onProgressChanged(
@@ -128,8 +132,10 @@ class mappa : Fragment(), OnMapReadyCallback{
                 seek2.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
                     override fun onStopTrackingTouch(p0: SeekBar?) {
                         val stringa=distanza.text.toString()
-                        stringa.removeSuffix(" Km")
-                        info[1]=stringa
+                        val disM=stringa.removeSuffix(" Km")
+                        var disKM=disM.toInt()
+                        disKM *= 1000
+                        info[1]=disKM.toString()
                     }
 
                     override fun onProgressChanged(
