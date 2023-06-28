@@ -26,6 +26,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils.*
 import android.widget.ImageButton
 import android.widget.Toast
+import android.widget.ToggleButton
 
 private lateinit var mMap: GoogleMap
 private lateinit var binding2: BarraBinding
@@ -56,7 +57,7 @@ class mappa : Fragment(), OnMapReadyCallback{
         super.onViewCreated(view, savedInstanceState)
         val mapFragment :SupportMapFragment=childFragmentManager.findFragmentById(R.id.cartina) as SupportMapFragment
         binding2 = BarraBinding.inflate(layoutInflater)
-        info=Array(5){""}
+        info=Array(6){""}
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -151,6 +152,20 @@ class mappa : Fragment(), OnMapReadyCallback{
                     override fun onStartTrackingTouch(p0: SeekBar?) {
                     }
 
+                })
+
+                val ordinaDec=filtri.findViewById<ToggleButton>(R.id.toggleButtonDec)
+                ordinaDec.setOnClickListener(object : View.OnClickListener{
+                    override fun onClick(p0: View?) {
+                        info[5]="desc"
+                    }
+                })
+
+                val ordinaAsc=filtri.findViewById<ToggleButton>(R.id.toggleButtonAsc)
+                ordinaAsc.setOnClickListener(object : View.OnClickListener{
+                    override fun onClick(p0: View?) {
+                        info[5]="asc"
+                    }
                 })
 
                 val popupMenu = PopupMenu(context,numInquilini)

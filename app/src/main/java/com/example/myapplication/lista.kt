@@ -21,6 +21,7 @@ class lista :Fragment() {
     private lateinit var distanza:String
     private lateinit var numInquilini:String
     private lateinit var prezzo:String
+    private lateinit var ordina:String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,17 +60,25 @@ class lista :Fragment() {
         }else {
             numInquilini = info[2]
         }
+        if (info[5]==""){
+            ordina="asc"
+        }else {
+            ordina = info[5]
+        }
 
         val requestBody = FormBody.Builder()
             .add("center", latitude+","+longitude)
             .add("country", "es")
-            .add("maxItems", "50")
+            .add("maxItems", "20")
             .add("distance", distanza)
             .add("numPage", "1")
             .add("maxPrice",prezzo)
             .add("bedrooms",numInquilini)
             .add("propertyType", "bedrooms")
+            .add("sort",ordina)
             .add("operation", "rent")
+            .add("language","it")
+
             .build()
 
         val client = OkHttpClient()

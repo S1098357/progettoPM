@@ -62,24 +62,25 @@
         app:layout_constraintTop_toBottomOf="@+id/seekBar">
 
         <ToggleButton
-            android:id="@+id/toggleButton3"
+            android:id="@+id/toggleButtonDec"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="ToggleButton"
             android:textAllCaps="false"
-            android:textOff="Prezzo decrescente"
-            android:textOn="Prezzo crescente"
+            android:textOff="Decrescente"
+            android:textOn="Attivo"
             android:textSize="16sp" />
 
         <ToggleButton
-            android:id="@+id/toggleButton4"
+            android:id="@+id/toggleButtonAsc"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:text="ToggleButton"
+            android:textOn="Attivo"
             android:textAllCaps="false"
-            android:textOff="Prezzo crescente"
+            android:textOff="Crescente"
             android:textSize="16sp" />
     </LinearLayout>
 
