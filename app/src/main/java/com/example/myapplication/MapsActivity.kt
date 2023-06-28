@@ -46,6 +46,8 @@ import java.io.IOException
 class MapsActivity : AppCompatActivity(){
 
     private lateinit var bottomNav: BottomNavigationView
+    private lateinit var prova: Array<String>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,9 +56,13 @@ class MapsActivity : AppCompatActivity(){
 
         val intent= intent
         if (intent.getStringArrayExtra("info")!=null){
-            val prova=intent.getStringArrayExtra("info")!!
-            val lista=lista.newInstance(prova)
-            loadFragment(lista)
+            prova=intent.getStringArrayExtra("info")!!
+            if (prova[3]!=""&&prova[4]!=""){
+                val lista=lista.newInstance(prova)
+                loadFragment(lista)
+            }
+        }else{
+            prova=Array(5){""}
         }
         bottomNav=findViewById(R.id.bottom_navigation_view)
         val navigationController=findNavController(R.id.nav_fragment)
@@ -66,12 +72,15 @@ class MapsActivity : AppCompatActivity(){
             when(it.itemId){
                 R.id.mappa->loadFragment(mappa())
                 R.id.lista->{
-                    if (intent.getStringArrayExtra("info")==null) {
+                    if (prova=={""}) {
                         Toast.makeText(this,"Per entrare in questa sezione eseguire prima una richiesta dalla mappa",Toast.LENGTH_LONG).show()
                     }else {
-                        val prova=intent.getStringArrayExtra("info")!!
-                        val lista=lista.newInstance(prova)
-                        loadFragment(lista)
+                        if (prova[3]!=""&&prova[4]!=""){
+                            val lista=lista.newInstance(prova)
+                            loadFragment(lista)
+                        }else{
+                            Toast.makeText(this,"Per entrare in questa sezione eseguire prima una ricerca dalla mappa",Toast.LENGTH_LONG).show()
+                        }
                     }
                 }
                 R.id.preferiti->loadFragment(preferiti())

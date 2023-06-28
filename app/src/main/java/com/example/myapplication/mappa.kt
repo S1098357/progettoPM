@@ -79,12 +79,13 @@ class mappa : Fragment(), OnMapReadyCallback{
                         }else {
                             val address: Address = addressList[0]
                             info[3]=address.latitude.toString()
-                            Toast.makeText(context,info[3],Toast.LENGTH_LONG).show()
                             info[4]=address.longitude.toString()
-                            Toast.makeText(context,info[4],Toast.LENGTH_LONG).show()
                             val latLng = LatLng(address.latitude, address.longitude)
                             mMap.addMarker(MarkerOptions().position(latLng).title(location))
                             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10F))
+                            val intent= Intent(context, MapsActivity::class.java)
+                            intent.putExtra("info",info)
+                            startActivity(intent)
                         }
                 }
                 return false
@@ -201,9 +202,11 @@ class mappa : Fragment(), OnMapReadyCallback{
                 val applica=filtri.findViewById<Button>(R.id.applica)
                 applica.setOnClickListener{
                     layout.dismiss()
-                    val intent= Intent(context, MapsActivity::class.java)
-                    intent.putExtra("info",info)
-                    startActivity(intent)
+                    if (info[3]!=""&&info[4]!=""){
+                        val intent= Intent(context, MapsActivity::class.java)
+                        intent.putExtra("info",info)
+                        startActivity(intent)
+                    }
                 }
 
                 layout.animationStyle= R.style.Animation

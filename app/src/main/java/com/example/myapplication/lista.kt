@@ -18,6 +18,9 @@ class lista :Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PropertyAdapter
     private lateinit var info:Array<String>
+    private lateinit var distanza:String
+    private lateinit var numInquilini:String
+    private lateinit var prezzo:String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,9 +44,21 @@ class lista :Fragment() {
         val url = "https://api.idealista.com/3.5/es/search"
         val latitude=info[3]
         val longitude=info[4]
-        val distanza=info[1]
-        val prezzo=info[0]
-        val numInquilini=info[2]
+        if (info[1]==""){
+            distanza="15000"
+        }else {
+            distanza = info[1]
+        }
+        if (info[0]==""){
+            prezzo="10000"
+        }else {
+            prezzo = info[0]
+        }
+        if (info[2]==""){
+            numInquilini="1"
+        }else {
+            numInquilini = info[2]
+        }
 
         val requestBody = FormBody.Builder()
             .add("center", latitude+","+longitude)
@@ -83,7 +98,6 @@ class lista :Fragment() {
 
                 activity?.runOnUiThread{
                     adapter.setElements(elementList)
-                    Toast.makeText(context,info.toString(),Toast.LENGTH_SHORT).show()
                 }
 
             }
