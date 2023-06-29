@@ -1,14 +1,17 @@
 package com.example.myapplication
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import okhttp3.internal.wait
 
 class PropertyAdapter : RecyclerView.Adapter<PropertyAdapter.PropertyViewHolder>() {
     private var elements: List<Element> = emptyList()
@@ -60,14 +63,12 @@ class PropertyAdapter : RecyclerView.Adapter<PropertyAdapter.PropertyViewHolder>
                 val propertyTypeTextView = it.findViewById<TextView>(R.id.propertyTypeTextView)
                 val roomsTextView = it.findViewById<TextView>(R.id.roomsTextView)
 
-                val propertyValues :PropertyValue = PropertyValue(addressTextView.text.toString(),
+                val propertyValues = PropertyValue(addressTextView.text.toString(),
                     priceTextView.text.toString(),propertyTypeTextView.text.toString(),roomsTextView.text.toString(),
                     FirebaseAuth.getInstance().currentUser?.uid!!)
-
-
                 mDbref.child("property").child("values").push().setValue(propertyValues)
-
-
+                Toast.makeText(it.context, "la tua casa è stata salvata e può essere visualizzata dalla tua lista dei preferiti",Toast.LENGTH_LONG).show()
+                it.setBackgroundColor(Color.argb(255,200,200,200))
             }
 
         }
