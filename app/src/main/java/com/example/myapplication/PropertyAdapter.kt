@@ -42,7 +42,6 @@ class PropertyAdapter : RecyclerView.Adapter<PropertyAdapter.PropertyViewHolder>
         private val priceTextView: TextView = itemView.findViewById(R.id.priceTextView)
         private val addressTextView: TextView = itemView.findViewById(R.id.addressTextView)
         private val roomsTextView: TextView = itemView.findViewById(R.id.roomsTextView)
-        private val linearLayout: LinearLayout = itemView.findViewById(R.id.proprietà)
 
 
         fun bind(element: Element) {
@@ -61,19 +60,13 @@ class PropertyAdapter : RecyclerView.Adapter<PropertyAdapter.PropertyViewHolder>
                 val propertyTypeTextView = it.findViewById<TextView>(R.id.propertyTypeTextView)
                 val roomsTextView = it.findViewById<TextView>(R.id.roomsTextView)
 
-                val propertyValues :ArrayList<String> = ArrayList()
-                propertyValues.add(addressTextView.text.toString())
-                propertyValues.add(priceTextView.text.toString())
-                propertyValues.add(propertyTypeTextView.text.toString())
-                propertyValues.add(roomsTextView.text.toString())
+                val propertyValues :PropertyValue = PropertyValue(addressTextView.text.toString(),
+                    priceTextView.text.toString(),propertyTypeTextView.text.toString(),roomsTextView.text.toString(),
+                    FirebaseAuth.getInstance().currentUser?.uid!!)
 
 
-                mDbref.child("property").child("user").push()
-                    .setValue(FirebaseAuth.getInstance().currentUser?.uid).addOnSuccessListener {
+                mDbref.child("property").child("values").push().setValue(propertyValues)
 
-                    mDbref.child("property").child("values").push().setValue(propertyValues)
-
-                }
 
             }
 

@@ -62,7 +62,7 @@ class MapsActivity : AppCompatActivity(){
                 loadFragment(lista)
             }
         }else{
-            prova=Array(5){""}
+            prova=Array(6){""}
         }
         bottomNav=findViewById(R.id.bottom_navigation_view)
         val navigationController=findNavController(R.id.nav_fragment)

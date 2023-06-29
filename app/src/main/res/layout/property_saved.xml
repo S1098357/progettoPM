@@ -1,8 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="128dp"
-    android:background="@drawable/ombreggiatura"
-    android:orientation="horizontal">
+    android:background="@drawable/ombreggiatura">
 
     <ImageButton
         android:id="@+id/imageButton4"
@@ -37,7 +36,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/addressTextView"
                     android:layout_width="match_parent"
                     android:layout_height="49dp"
                     android:gravity="center_vertical"
@@ -46,7 +45,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/priceTextView"
                     android:layout_width="271dp"
                     android:layout_height="39dp"
                     android:backgroundTint="#FFFFFF"
@@ -58,13 +57,30 @@
             </LinearLayout>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="358dp"
-            android:layout_height="40dp"
-            android:text="Proprietario, contatti, num. inquilini"
-            android:textColor="#4D7298"
-            android:textSize="16sp"
-            android:textStyle="italic" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/propertyTypeTextView"
+                android:layout_width="157dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Proprietario, contatti, num. inquilini"
+                android:textColor="#4D7298"
+                android:textSize="16sp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/roomsTextView"
+                android:layout_width="174dp"
+                android:layout_height="40dp"
+                android:text="Proprietario, contatti, num. inquilini"
+                android:textColor="#4D7298"
+                android:textSize="16sp"
+                android:textStyle="italic" />
+        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>
