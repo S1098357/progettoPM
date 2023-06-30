@@ -44,7 +44,7 @@ class preferiti : Fragment() {
 
                     for (postSnapshot in snapshot.children){
                         val value=postSnapshot.getValue(PropertyValue::class.java)
-                        if (value?.user==FirebaseAuth.getInstance().currentUser?.uid){
+                        if (value?.user==FirebaseAuth.getInstance().currentUser?.uid ){
                             propertyValueList.add(value!!)
                         }
                     }

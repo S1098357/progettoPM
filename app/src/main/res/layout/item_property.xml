@@ -72,6 +72,13 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/propertyCodeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="TextView" />
+
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -114,4 +121,5 @@
         android:layout_weight="1"
         android:background="#FFFFFF"
         android:src="@drawable/baseline_keyboard_arrow_right_24" />
+
 </LinearLayout>

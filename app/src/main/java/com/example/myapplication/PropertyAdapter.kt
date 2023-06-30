@@ -9,15 +9,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import okhttp3.internal.wait
 
 class PropertyAdapter : RecyclerView.Adapter<PropertyAdapter.PropertyViewHolder>() {
     private var elements: List<Element> = emptyList()
     private lateinit var mAuth: FirebaseAuth
     private lateinit var mDbref: DatabaseReference
-
+    private lateinit var propertyValueList: ArrayList<PropertyValue>
+    private lateinit var codici:ArrayList<String?>
     fun setElements(elements: List<Element>) {
         this.elements = elements
         notifyDataSetChanged()
@@ -27,6 +27,28 @@ class PropertyAdapter : RecyclerView.Adapter<PropertyAdapter.PropertyViewHolder>
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_property, parent, false)
         mAuth=FirebaseAuth.getInstance()
         mDbref= FirebaseDatabase.getInstance("https://unifind-53d53-default-rtdb.europe-west1.firebasedatabase.app/").getReference()
+
+        propertyValueList = ArrayList()
+        mDbref.child("property").child("values")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+
+                    propertyValueList.clear()
+
+                    for (postSnapshot in snapshot.children) {
+                        val value = postSnapshot.getValue(PropertyValue::class.java)
+                        if (value?.user == FirebaseAuth.getInstance().currentUser?.uid) {
+                            propertyValueList.add(value!!)
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                }
+            })
+
+        codici = ArrayList()
+
         return PropertyViewHolder(view)
     }
 
@@ -45,6 +67,7 @@ class PropertyAdapter : RecyclerView.Adapter<PropertyAdapter.PropertyViewHolder>
         private val priceTextView: TextView = itemView.findViewById(R.id.priceTextView)
         private val addressTextView: TextView = itemView.findViewById(R.id.addressTextView)
         private val roomsTextView: TextView = itemView.findViewById(R.id.roomsTextView)
+        private val propertyCodeTextView: TextView= itemView.findViewById(R.id.propertyCodeTextView)
 
 
         fun bind(element: Element) {
@@ -53,6 +76,7 @@ class PropertyAdapter : RecyclerView.Adapter<PropertyAdapter.PropertyViewHolder>
             addressTextView.text = element.address
             val stringa = "Num. stanze: " + element.rooms.toString()
             roomsTextView.text = stringa
+            propertyCodeTextView.text=element.propertyCode
             // Imposta gli altri campi del tuo layout con i dati dell'elemento
         }
 
@@ -62,13 +86,37 @@ class PropertyAdapter : RecyclerView.Adapter<PropertyAdapter.PropertyViewHolder>
                 val priceTextView = it.findViewById<TextView>(R.id.priceTextView)
                 val propertyTypeTextView = it.findViewById<TextView>(R.id.propertyTypeTextView)
                 val roomsTextView = it.findViewById<TextView>(R.id.roomsTextView)
+                val propertyCodeTextView = it.findViewById<TextView>(R.id.propertyCodeTextView)
 
-                val propertyValues = PropertyValue(addressTextView.text.toString(),
-                    priceTextView.text.toString(),propertyTypeTextView.text.toString(),roomsTextView.text.toString(),
-                    FirebaseAuth.getInstance().currentUser?.uid!!)
-                mDbref.child("property").child("values").push().setValue(propertyValues)
-                Toast.makeText(it.context, "la tua casa è stata salvata e può essere visualizzata dalla tua lista dei preferiti",Toast.LENGTH_LONG).show()
-                it.setBackgroundColor(Color.argb(255,200,200,200))
+                for (propertyValue in propertyValueList) {
+                    codici.add(propertyValue.propertyCode)
+                }
+
+                if (!codici.contains(propertyCodeTextView.text.toString())) {
+
+                    val propertyValues = PropertyValue(
+                        addressTextView.text.toString(),
+                        priceTextView.text.toString(),
+                        propertyTypeTextView.text.toString(),
+                        roomsTextView.text.toString(),
+                        FirebaseAuth.getInstance().currentUser?.uid!!,
+                        propertyCodeTextView.text.toString()
+                    )
+                    mDbref.child("property").child("values").push().setValue(propertyValues)
+                    Toast.makeText(
+                        it.context,
+                        "la tua casa è stata salvata e può essere visualizzata dalla tua lista dei preferiti",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }else{
+                    Toast.makeText(
+                        it.context,
+                        "la casa selezionata era già stata salvata da questo utente",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+                    it.setBackgroundColor(Color.argb(255, 200, 200, 200))
+                }
             }
 
         }
@@ -76,5 +124,4 @@ class PropertyAdapter : RecyclerView.Adapter<PropertyAdapter.PropertyViewHolder>
 
 
 
-}
 
