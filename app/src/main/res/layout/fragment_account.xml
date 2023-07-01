@@ -72,16 +72,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:gravity="center_vertical"
-                android:text="La tua e-mail:"
+                android:text="Il tuo username:"
                 android:textColor="#000000"
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/editTextTextEmailAddress"
+                android:id="@+id/editTextTextUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textEmailAddress"
+                android:inputType="text"
                 android:text="es: user@gmail.com"
                 android:textColor="#605E5E" />
 
@@ -120,6 +120,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:id="@+id/descrizione"
                     android:background="#EDE6ED"
                     android:hint="Descrivi la tua personalità:"
                     android:text="Ciao, sono simone ..................................................................................................." />
@@ -139,7 +140,7 @@
             android:backgroundTint="#A5A2A2"
             android:text="Applica modifiche"
             android:textColor="#000000"
-            android:visibility="invisible"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

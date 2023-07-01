@@ -46,7 +46,7 @@ class Registrazione : AppCompatActivity() {
         mAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    addUserToDatabase(name,email,mAuth.currentUser?.uid!!)
+                    addUserToDatabase(name,email,mAuth.currentUser?.uid!!,password)
                     val intent= Intent(this@Registrazione,MapsActivity::class.java)
                     finish()
                     startActivity(intent)
@@ -58,10 +58,10 @@ class Registrazione : AppCompatActivity() {
             }
     }
 
-    private fun addUserToDatabase(name: String,email: String,uid:String){
+    private fun addUserToDatabase(name: String,email: String,uid:String,password: String){
 
         mDbRef=FirebaseDatabase.getInstance("https://unifind-53d53-default-rtdb.europe-west1.firebasedatabase.app/").getReference()
-        mDbRef.child("user").child(uid).setValue(User(name,email,uid))
+        mDbRef.child("user").child(uid).setValue(User(name,email,uid,password))
 
     }
 
