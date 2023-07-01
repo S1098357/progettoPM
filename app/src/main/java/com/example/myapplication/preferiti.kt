@@ -25,7 +25,6 @@ class preferiti : Fragment() {
         val root=inflater.inflate(R.layout.fragment_preferiti, container, false)
         recyclerView =root.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
-
         adapter = PreferitiAdapter()
         recyclerView.adapter = adapter
         return root

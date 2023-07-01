@@ -21,19 +21,19 @@ class lista :Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PropertyAdapter
-    private lateinit var info:Array<String>
-    private lateinit var distanza:String
-    private lateinit var numInquilini:String
-    private lateinit var prezzo:String
-    private lateinit var ordina:String
+    private lateinit var info: Array<String>
+    private lateinit var distanza: String
+    private lateinit var numInquilini: String
+    private lateinit var prezzo: String
+    private lateinit var ordina: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root= inflater.inflate(R.layout.fragment_lista, container, false)
-        recyclerView =root.findViewById(R.id.recyclerView)
+        val root = inflater.inflate(R.layout.fragment_lista, container, false)
+        recyclerView = root.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         adapter = PropertyAdapter()
@@ -45,7 +45,7 @@ class lista :Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val url = "https://api.idealista.com/3.5/es/search"
+        /*val url = "https://api.idealista.com/3.5/es/search"
         val latitude=info[3]
         val longitude=info[4]
         if (info[1]==""){
@@ -101,11 +101,11 @@ class lista :Fragment() {
 
             override fun onResponse(call: Call, response: Response) {
 
-                val responseBody = response.body?.string()
+                val responseBody = response.body?.string()*/
 
-                val gson = Gson()
+        val gson = Gson()
 
-                val esempio="""{
+        val esempio = """{
                         "elementList": [
                     {
                         "propertyCode": "27258694",
@@ -158,19 +158,19 @@ class lista :Fragment() {
                     "lowerRangePosition": 0
                 }"""
 
-                //val property: Property = gson.fromJson(responseBody, Property::class.java)
+        //val property: Property = gson.fromJson(responseBody, Property::class.java)
 
-                val property: Property = gson.fromJson(esempio, Property::class.java)
+        val property: Property = gson.fromJson(esempio, Property::class.java)
 
-                val elementList: List<Element> = property.elementList
+        val elementList: List<Element> = property.elementList
 
-                activity?.runOnUiThread {
-                    adapter.setElements(elementList)
-                }
+        activity?.runOnUiThread {
+            adapter.setElements(elementList)
+        }
 
-            }
-        })
     }
+    //})
+//}
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

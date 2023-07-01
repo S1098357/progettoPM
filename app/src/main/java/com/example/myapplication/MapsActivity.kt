@@ -1,47 +1,13 @@
 package com.example.myapplication
 
-import android.app.Activity
-import android.app.DownloadManager
-import android.app.VoiceInteractor
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.Address
-import android.location.Geocoder
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Gravity
-import android.view.View
-import android.view.animation.AnimationUtils
 import android.widget.*
-import androidx.appcompat.widget.SearchView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.Fragment.*
-import androidx.fragment.app.FragmentContainerView
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.findFragment
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.viewpager.widget.PagerAdapter
-import com.example.myapplication.databinding.ActivityMainBinding
 
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.example.myapplication.databinding.ActivityMapsBinding
-import com.example.myapplication.databinding.BarraBinding
-import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationView
-import okhttp3.*
-import org.json.JSONObject
-import java.io.IOException
 
 class MapsActivity : AppCompatActivity(){
 
@@ -61,9 +27,12 @@ class MapsActivity : AppCompatActivity(){
                 val lista=lista.newInstance(prova)
                 loadFragment(lista)
             }
-        }else{
-            prova=Array(6){""}
         }
+        if (intent.getStringExtra("propertyCode")!=null){
+            val propertyCode=intent.getStringExtra("propertyCode")
+            loadFragment(Chat(propertyCode))
+        }
+        prova=Array(6){""}
         bottomNav=findViewById(R.id.bottom_navigation_view)
         val navigationController=findNavController(R.id.nav_fragment)
         bottomNav.setupWithNavController(navigationController)
@@ -84,7 +53,7 @@ class MapsActivity : AppCompatActivity(){
                     }
                 }
                 R.id.preferiti->loadFragment(preferiti())
-                R.id.messaggi->loadFragment(Chat())
+                R.id.messaggi->loadFragment(listaProprieta())
                 R.id.account->loadFragment(account())
                 else->{}
             }
