@@ -46,9 +46,9 @@
 
                 <ImageView
                     android:layout_width="150dp"
+                    android:id="@+id/immagine"
                     android:layout_height="150dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/img" />
+                    android:scaleType="centerCrop" />
 
             </androidx.cardview.widget.CardView>
 

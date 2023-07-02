@@ -6,6 +6,7 @@ class User {
     var uid: String?=null
     var password: String?=null
     var descrizione: String?=""
+    var immagine: String?=""
 
     constructor(){}
 
