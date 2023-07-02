@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="413dp"
         android:layout_height="728dp"
-        android:background="#3C3C3C"
+        android:background="@color/white"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +48,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/img" />
+                app:srcCompat="@drawable/logo" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -68,7 +68,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="54dp"
-                    android:orientation="horizontal"></LinearLayout>
+                    android:orientation="horizontal">
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/textView6"
