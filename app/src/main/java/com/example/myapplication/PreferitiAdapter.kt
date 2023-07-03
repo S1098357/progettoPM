@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,11 @@ class PreferitiAdapter : RecyclerView.Adapter<PreferitiAdapter.PreferitiViewHold
     override fun onBindViewHolder(holder: PreferitiAdapter.PreferitiViewHolder, position: Int) {
         val propertyValue = propertyValues[position]
         holder.bind(propertyValue)
+        holder.itemView.setOnClickListener {
+            val intent=Intent(it.context,MapsActivity::class.java)
+            intent.putExtra("propertyCode",propertyValue.propertyCode)
+            it.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
