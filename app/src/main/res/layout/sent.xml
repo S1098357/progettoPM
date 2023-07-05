@@ -4,19 +4,19 @@
     android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:layout_width="300dp"
-        android:layout_height="200dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
-        android:background="@drawable/prova">
+        android:background="@drawable/fumetto_inviato">
 
         <TextView
             android:id="@+id/txt_sent_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="40dp"
-            android:text="this is sent message"
+            android:text="this is sent message "
             android:textSize="18sp" />
 
     </RelativeLayout>
