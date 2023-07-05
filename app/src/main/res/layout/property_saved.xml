@@ -37,7 +37,7 @@
 
                 <TextView
                     android:id="@+id/addressTextView"
-                    android:layout_width="match_parent"
+                    android:layout_width="268dp"
                     android:layout_height="49dp"
                     android:gravity="center_vertical"
                     android:text="  città, via, indirizzo, distanza dall'uni"
@@ -46,7 +46,7 @@
 
                 <TextView
                     android:id="@+id/priceTextView"
-                    android:layout_width="271dp"
+                    android:layout_width="232dp"
                     android:layout_height="39dp"
                     android:backgroundTint="#FFFFFF"
                     android:gravity="center_vertical"
@@ -64,7 +64,7 @@
 
             <TextView
                 android:id="@+id/propertyTypeTextView"
-                android:layout_width="157dp"
+                android:layout_width="70dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="Proprietario, contatti, num. inquilini"
@@ -74,12 +74,17 @@
 
             <TextView
                 android:id="@+id/roomsTextView"
-                android:layout_width="174dp"
+                android:layout_width="186dp"
                 android:layout_height="40dp"
                 android:text="Proprietario, contatti, num. inquilini"
                 android:textColor="#4D7298"
                 android:textSize="16sp"
                 android:textStyle="italic" />
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                />
         </LinearLayout>
 
     </LinearLayout>

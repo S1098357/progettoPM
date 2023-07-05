@@ -8,6 +8,7 @@
         android:layout_width="408dp"
         android:layout_height="61dp"
         android:text="Prova"
+        android:textAlignment="center"
         android:textColor="#000000"
         android:background="@drawable/ombreggiatura"
         android:textSize="28dp" />
