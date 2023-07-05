@@ -9,7 +9,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
-        android:background="@drawable/fumetto_prova">
+        android:background="@drawable/fumetto_definitivo">
 
         <TextView
             android:id="@+id/txt_recieve_msg"
