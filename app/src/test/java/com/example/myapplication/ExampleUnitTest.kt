@@ -11,7 +11,28 @@ import org.junit.Assert.*
  */
 class ExampleUnitTest {
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun testUser() {
+        val user=User("prova","prova","prova", "prova")
+        assertEquals(user.name, "prova")
+        assertEquals(user.email, "prova")
+        assertEquals(user.password, "prova")
+        assertEquals(user.uid, "prova")
+    }
+
+    @Test
+    fun testMessage(){
+        val messaggio=Message("ciao","io")
+        assertEquals(messaggio.senderId, "io")
+        assertEquals(messaggio.message, "ciao")
+    }
+
+    @Test
+    fun testPropertyValue(){
+        val propertyValue=PropertyValue("prova","prova","prova","prova","prova","prova")
+        assertEquals(propertyValue.addressTextView, "prova")
+        assertEquals(propertyValue.priceTextView, "prova")
+        assertEquals(propertyValue.propertyTypeTextView, "prova")
+        assertEquals(propertyValue.propertyCode, "prova")
+        assertEquals(propertyValue.roomsTextView, "prova")
     }
 }

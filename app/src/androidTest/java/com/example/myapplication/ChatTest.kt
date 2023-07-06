@@ -1,11 +1,10 @@
 package com.example.myapplication
 
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 
@@ -17,12 +16,12 @@ import org.junit.Rule
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
-class ExampleInstrumentedTest {
+class ChatTest {
 
     @get:Rule
-    val activityRule = ActivityScenarioRule(Login::class.java)
+    val activityRule = ActivityScenarioRule(ChatActivity::class.java)
     @Test
-    fun testLogin() {
-        onView(withText("              e-mail:")).check(matches(isDisplayed()))
+    fun testFiltri() {
+        onView(withId(R.id.textViewContatto)).check(matches(isDisplayed()))
     }
 }
