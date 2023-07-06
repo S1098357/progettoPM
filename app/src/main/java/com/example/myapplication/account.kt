@@ -25,6 +25,7 @@ import com.google.firebase.auth.ktx.oAuthCredential
 import com.google.firebase.database.*
 import android.Manifest
 import android.graphics.BitmapFactory
+import android.widget.Toast
 import com.google.firebase.storage.FirebaseStorage
 
 
@@ -42,7 +43,7 @@ class account : Fragment() {
     private lateinit var selectedImageUri: Uri
     private val PICK_IMAGE_REQUEST = 1
 
-
+    var immagineCambiata: Boolean= false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -81,6 +82,7 @@ class account : Fragment() {
                 username.setText(user.name)
                 password.setText(user.password)
                 descrizione.setText(user.descrizione)
+                //selectedImageUri=user.immagine!!.toUri()
 
                 val storage = FirebaseStorage.getInstance()
                 val storageRef = storage.reference
@@ -113,21 +115,27 @@ class account : Fragment() {
         }
 
         bottone.setOnClickListener {
-            user.descrizione = descrizione.text.toString()
-            user.password = password.text.toString()
-            user.name = username.text.toString()
-            val storage = FirebaseStorage.getInstance()
-            val storageRef = storage.reference
-            val imagesRef = storageRef.child("images")
-            val fileName = user.uid+".jpg"
-            val fileRef = imagesRef.child(fileName)
-            fileRef.putFile(selectedImageUri)
-            mDbref =
-                FirebaseDatabase.getInstance("https://unifind-53d53-default-rtdb.europe-west1.firebasedatabase.app/")
-                    .getReference()
-            mDbref.child("user").child(mAuth.currentUser?.uid!!).setValue(user)
-            mAuth.currentUser!!.reauthenticate(credential)
-            mAuth.currentUser!!.updatePassword(user.password!!)
+            if (password.text.toString().length<8){
+                Toast.makeText(context,"La password deve contenere almeno 8 caratteri", Toast.LENGTH_LONG).show()
+            }else {
+                user.descrizione = descrizione.text.toString()
+                user.password = password.text.toString()
+                user.name = username.text.toString()
+                val storage = FirebaseStorage.getInstance()
+                val storageRef = storage.reference
+                val imagesRef = storageRef.child("images")
+                val fileName = user.uid + ".jpg"
+                val fileRef = imagesRef.child(fileName)
+                if (immagineCambiata) {
+                    fileRef.putFile(selectedImageUri)
+                }
+                mDbref =
+                    FirebaseDatabase.getInstance("https://unifind-53d53-default-rtdb.europe-west1.firebasedatabase.app/")
+                        .getReference()
+                mDbref.child("user").child(mAuth.currentUser?.uid!!).setValue(user)
+                mAuth.currentUser!!.reauthenticate(credential)
+                mAuth.currentUser!!.updatePassword(user.password!!)
+            }
         }
     }
 
@@ -137,6 +145,7 @@ class account : Fragment() {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null) {
             selectedImageUri = data.data!!
             immagine.setImageURI(selectedImageUri)
+            immagineCambiata=true
         }
     }
 }
