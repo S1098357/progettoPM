@@ -18,11 +18,6 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".Chat"
-            android:exported="false"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity
             android:name=".Registrazione"
             android:exported="false"
             android:configChanges="orientation"
