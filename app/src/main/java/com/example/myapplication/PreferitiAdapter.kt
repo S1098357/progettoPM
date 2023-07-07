@@ -51,23 +51,16 @@ class PreferitiAdapter : RecyclerView.Adapter<PreferitiAdapter.PreferitiViewHold
             mDbref.child("property").child("values").addListenerForSingleValueEvent(object :
                 ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-
-
                     propertyValueList.clear()
                     var codice: String?
                     for (postSnapshot in snapshot.children) {
                         val value = postSnapshot.getValue(PropertyValue::class.java)
                         codice = value?.propertyCode
-                        if (codice != propertyValue.propertyCode && propertyValue.user==FirebaseAuth.getInstance().currentUser?.uid) {
+                        if (!(value?.user==FirebaseAuth.getInstance().currentUser?.uid&&codice==propertyValue.propertyCode)) {
                             propertyValueList.add(value!!)
                         }
                     }
-                    if (propertyValueList.size!=0) {
-                        mDbref.child("property").child("values").setValue(propertyValueList)
-                        Toast.makeText(it.context,"entra",Toast.LENGTH_LONG).show()
-                    } else {
-                        mDbref.child("property").child("values").setValue(null)
-                    }
+                    mDbref.child("property").child("values").setValue(propertyValueList)
                 }
 
                 override fun onCancelled(error: DatabaseError) {
