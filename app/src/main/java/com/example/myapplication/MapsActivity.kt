@@ -35,6 +35,7 @@ class MapsActivity : AppCompatActivity(){
         prova=Array(6){""}
         bottomNav=findViewById(R.id.bottom_navigation_view)
         val navigationController=findNavController(R.id.nav_fragment)
+        bottomNav.selectedItemId=R.id.account
         bottomNav.setupWithNavController(navigationController)
         bottomNav.setOnItemSelectedListener{
 
