@@ -44,6 +44,7 @@ class account : Fragment() {
     private val PICK_IMAGE_REQUEST = 1
 
     var immagineCambiata: Boolean= false
+    var primaVolta: Boolean= true
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -82,28 +83,26 @@ class account : Fragment() {
                 username.setText(user.name)
                 password.setText(user.password)
                 descrizione.setText(user.descrizione)
-                //selectedImageUri=user.immagine!!.toUri()
 
-                val storage = FirebaseStorage.getInstance()
-                val storageRef = storage.reference
-                val imagesRef = storageRef.child("images")
-                val imageRef = imagesRef.child(user.uid+".jpg")
-                val ONE_MEGABYTE: Long = 1024 * 1024 // Dimensione massima dell'immagine
-                imageRef.getBytes(ONE_MEGABYTE)
-                    .addOnSuccessListener { imageData ->
-                        val bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.size)
-                        immagine.setImageBitmap(bitmap)
-                    }
-                    .addOnFailureListener { exception ->
-                    }
-
-
-                //immagine.setImageURI(user.immagine?.toUri())
+                if (primaVolta) {
+                    val storage = FirebaseStorage.getInstance()
+                    val storageRef = storage.reference
+                    val imagesRef = storageRef.child("images")
+                    val imageRef = imagesRef.child(user.uid + ".jpg")
+                    val ONE_MEGABYTE: Long = 1024 * 1024 // Dimensione massima dell'immagine
+                    imageRef.getBytes(ONE_MEGABYTE)
+                        .addOnSuccessListener { imageData ->
+                            val bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.size)
+                            immagine.setImageBitmap(bitmap)
+                        }
+                        .addOnFailureListener { exception ->
+                        }
+                }
+                primaVolta=false
             }
+                override fun onCancelled(error: DatabaseError) {
 
-            override fun onCancelled(error: DatabaseError) {
-
-            }
+                }
         })
         immagine.setOnClickListener {
 
@@ -118,9 +117,6 @@ class account : Fragment() {
             if (password.text.toString().length<8){
                 Toast.makeText(context,"La password deve contenere almeno 8 caratteri", Toast.LENGTH_LONG).show()
             }else {
-                user.descrizione = descrizione.text.toString()
-                user.password = password.text.toString()
-                user.name = username.text.toString()
                 val storage = FirebaseStorage.getInstance()
                 val storageRef = storage.reference
                 val imagesRef = storageRef.child("images")
@@ -129,6 +125,9 @@ class account : Fragment() {
                 if (immagineCambiata) {
                     fileRef.putFile(selectedImageUri)
                 }
+                user.descrizione = descrizione.text.toString()
+                user.password = password.text.toString()
+                user.name = username.text.toString()
                 mDbref =
                     FirebaseDatabase.getInstance("https://unifind-53d53-default-rtdb.europe-west1.firebasedatabase.app/")
                         .getReference()
