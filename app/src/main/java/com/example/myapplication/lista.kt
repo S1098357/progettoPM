@@ -175,8 +175,6 @@ class lista :Fragment() {
                 .post(requestBody)
                 .build()
 
-            //aggiungi la parte del token
-
             client.newCall(request).enqueue(object : Callback {
                 override fun onFailure(call: Call, e: IOException) {
                     activity?.runOnUiThread {
