@@ -47,6 +47,7 @@ class PropertyAdapter : RecyclerView.Adapter<PropertyAdapter.PropertyViewHolder>
                 }
             })
 
+        //lista di property code
         codici = ArrayList()
 
         return PropertyViewHolder(view)
@@ -88,10 +89,12 @@ class PropertyAdapter : RecyclerView.Adapter<PropertyAdapter.PropertyViewHolder>
                 val roomsTextView = it.findViewById<TextView>(R.id.roomsTextView)
                 val propertyCodeTextView = it.findViewById<TextView>(R.id.propertyCodeTextView)
 
+                //passa il codice della proprietà da salvare
                 for (propertyValue in propertyValueList) {
                     codici.add(propertyValue.propertyCode)
                 }
 
+                //controlla che la proprietà non sia gia salvata
                 if (!codici.contains(propertyCodeTextView.text.toString())) {
 
                     val propertyValues = PropertyValue(
@@ -115,6 +118,7 @@ class PropertyAdapter : RecyclerView.Adapter<PropertyAdapter.PropertyViewHolder>
                         Toast.LENGTH_LONG
                     ).show()
                 }
+                //cambia colore all'oggetto cliccato
                     it.setBackgroundColor(Color.argb(255, 200, 200, 200))
                 }
             }

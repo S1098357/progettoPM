@@ -4,6 +4,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 import com.example.myapplication.TokenResponse
 
+//Classe per contenere il Token di idealista
 interface ApiService {
     @Headers("Content-Type: application/x-www-form-urlencoded",
         "Authorization: Basic aGs0anZrMzNmcnRieTE3d25qdzdndGFjOGU3ZXJpcGk6dWZnbWhhVVZaRHV0")

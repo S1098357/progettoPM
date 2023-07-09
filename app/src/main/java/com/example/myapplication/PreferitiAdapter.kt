@@ -40,12 +40,15 @@ class PreferitiAdapter : RecyclerView.Adapter<PreferitiAdapter.PreferitiViewHold
     override fun onBindViewHolder(holder: PreferitiAdapter.PreferitiViewHolder, position: Int) {
         val propertyValue = propertyValues[position]
         holder.bind(propertyValue)
+        //al click su una proprietà apre la chat
         val cliccabile=holder.itemView.findViewById<LinearLayout>(R.id.cliccabile)
         cliccabile.setOnClickListener {
             val intent=Intent(it.context,MapsActivity::class.java)
             intent.putExtra("propertyCode",propertyValue.propertyCode)
             it.context.startActivity(intent)
         }
+
+        //quando cliccki il cuoricino rimuovi la proprietà dai preferiti
         val bottone=holder.itemView.findViewById<ImageButton>(R.id.imageButton4)
         bottone.setOnClickListener {
             mDbref.child("property").child("values").addListenerForSingleValueEvent(object :
@@ -73,6 +76,7 @@ class PreferitiAdapter : RecyclerView.Adapter<PreferitiAdapter.PreferitiViewHold
         return propertyValues.size
     }
 
+    //aggiorna le viste coi dati del db
     inner class PreferitiViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val propertyTypeTextView: TextView =
             itemView.findViewById(R.id.propertyTypeTextView)

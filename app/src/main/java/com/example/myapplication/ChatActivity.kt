@@ -55,6 +55,7 @@ class ChatActivity : AppCompatActivity() {
         chatRecyclerView.layoutManager=LinearLayoutManager(this)
         chatRecyclerView.adapter=messageAdapter
 
+        //salva tutti i messaggi della chat corrente
         mDbRef.child("chats").child(senderRoom!!).child("messages")
             .addValueEventListener(object :ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -75,6 +76,7 @@ class ChatActivity : AppCompatActivity() {
 
         sendButton.setOnClickListener{
 
+            //salva il messaggio sul db
             val message=messageBox.text.toString()
             val messageObject= Message(message,senderUid)
 

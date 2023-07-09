@@ -37,14 +37,17 @@ class Chat(propertyCode: String?) : Fragment() {
             FirebaseDatabase.getInstance("https://unifind-53d53-default-rtdb.europe-west1.firebasedatabase.app/")
                 .getReference()
 
+        //lista degli user
         userList = ArrayList()
         adapter = UserAdapter(requireContext(), userList)
 
         userRecyclerView.layoutManager = LinearLayoutManager(context)
         userRecyclerView.adapter = adapter
+        //lista degli id
         listaUtenti = ArrayList()
 
         mDbref.child("property").child("values").addValueEventListener(object : ValueEventListener {
+            //salva tutti gli id degli utenti che hanno tra i preferiti la proprietà selezionata
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (postSnapshot in snapshot.children) {
                     val currentPropertyValue = postSnapshot.getValue(PropertyValue::class.java)
@@ -58,6 +61,7 @@ class Chat(propertyCode: String?) : Fragment() {
             }
         })
 
+        //salva tutti gli user con la proprietà selezionata tra i preferiti
         mDbref.child("user").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 userList.clear()

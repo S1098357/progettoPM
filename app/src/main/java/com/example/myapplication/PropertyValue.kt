@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.widget.TextView
 
+//data class con i valori delle proprietà
 class PropertyValue {
 
     var addressTextView: String? = null

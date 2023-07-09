@@ -21,6 +21,7 @@ class MapsActivity : AppCompatActivity(){
         setContentView(R.layout.barra)
 
         val intent= intent
+        //se è presente info vai sul fragment lista
         if (intent.getStringArrayExtra("info")!=null){
             prova=intent.getStringArrayExtra("info")!!
             if (prova[3]!=""&&prova[4]!=""){
@@ -28,11 +29,13 @@ class MapsActivity : AppCompatActivity(){
                 loadFragment(lista)
             }
         }
+        //se clicchi una casa dai preferiti apre la chat relativa
         if (intent.getStringExtra("propertyCode")!=null){
             val propertyCode=intent.getStringExtra("propertyCode")
             loadFragment(Chat(propertyCode))
         }
         prova=Array(6){""}
+
         bottomNav=findViewById(R.id.bottom_navigation_view)
         val navigationController=findNavController(R.id.nav_fragment)
         bottomNav.selectedItemId=R.id.account
@@ -42,6 +45,7 @@ class MapsActivity : AppCompatActivity(){
             when(it.itemId){
                 R.id.mappa->loadFragment(mappa())
                 R.id.lista->{
+                    //gestisce i casi in cui info è vuota o meno
                     if (prova=={""}) {
                         Toast.makeText(this,"Per entrare in questa sezione eseguire prima una richiesta dalla mappa",Toast.LENGTH_LONG).show()
                     }else {
@@ -63,6 +67,7 @@ class MapsActivity : AppCompatActivity(){
     }
 
 private  fun loadFragment(fragment: Fragment) {
+    //cambia il fragment visualizzato
     val transaction = supportFragmentManager.beginTransaction()
     transaction.replace(R.id.nav_fragment, fragment)
     transaction.commit()

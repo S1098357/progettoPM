@@ -36,6 +36,7 @@ class preferiti : Fragment() {
         mDbref= FirebaseDatabase.getInstance("https://unifind-53d53-default-rtdb.europe-west1.firebasedatabase.app/").getReference()
         super.onViewCreated(view, savedInstanceState)
         propertyValueList=ArrayList()
+        //prende i dati dal db e li aggiunge alla lista e li mette nell'adapter
         mDbref.child("property").child("values").addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
 

@@ -18,10 +18,13 @@ class MessageAdapter(val context : Context, val messageList:ArrayList<Message>):
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
+        //messaggio ricevuto
         if(viewType==1){
             val view:View= LayoutInflater.from(context).inflate(R.layout.receive,parent,false)
             return RecieveViewHolder(view)
+
         }else{
+            //messaggio inviato
             val view:View= LayoutInflater.from(context).inflate(R.layout.sent,parent,false)
             return SentViewHolder(view)
         }
@@ -35,6 +38,8 @@ class MessageAdapter(val context : Context, val messageList:ArrayList<Message>):
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val currentMessage=messageList[position]
+
+        //abbina l'holder in base al tipo di messaggio e ne sovrascrive il testo
         if (holder.javaClass==SentViewHolder::class.java){
 
             val viewHolder=holder as SentViewHolder

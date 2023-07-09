@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+//data class per il messaggio singolo
 class Message {
 
     var message: String?=null

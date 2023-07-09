@@ -20,6 +20,7 @@ class listaProprieta : Fragment() {
     private lateinit var mAuth:FirebaseAuth
     private lateinit var mDbref:DatabaseReference
 
+    //lista proprietà visibile dalla chat
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -41,6 +42,7 @@ class listaProprieta : Fragment() {
         mAuth=FirebaseAuth.getInstance()
         mDbref=FirebaseDatabase.getInstance("https://unifind-53d53-default-rtdb.europe-west1.firebasedatabase.app/").getReference()
 
+        //prende tutti i valori di propertyValue
         mDbref.child("property").child("values").addValueEventListener(object: ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 propertyValueList.clear()

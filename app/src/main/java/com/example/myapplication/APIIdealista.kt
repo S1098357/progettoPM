@@ -1,5 +1,7 @@
 package com.example.myapplication
 
+
+//classe per contenere JSON idealista
 data class Property(
     val elementList: List<Element>,
     val total: Int,

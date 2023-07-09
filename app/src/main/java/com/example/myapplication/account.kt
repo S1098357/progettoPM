@@ -49,7 +49,7 @@ class account : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        //definisco tutti gli elementi findViewById
         val root = inflater.inflate(R.layout.fragment_account, container, false)
         username = root.findViewById(R.id.editTextTextUsername)
         password = root.findViewById(R.id.editTextTextPassword)
@@ -65,6 +65,8 @@ class account : Fragment() {
         mDbref =
             FirebaseDatabase.getInstance("https://unifind-53d53-default-rtdb.europe-west1.firebasedatabase.app/")
                 .getReference()
+
+        //prende i dati dell'utente corrente
         mDbref.child("user").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
@@ -84,6 +86,7 @@ class account : Fragment() {
                 password.setText(user.password)
                 descrizione.setText(user.descrizione)
 
+                //per la corretta visualizzazione dell'immagine
                 if (primaVolta) {
                     val storage = FirebaseStorage.getInstance()
                     val storageRef = storage.reference
@@ -104,6 +107,7 @@ class account : Fragment() {
 
                 }
         })
+        //scegli immagine dal dispositivo
         immagine.setOnClickListener {
 
             val intent =
@@ -113,6 +117,7 @@ class account : Fragment() {
 
         }
 
+        //salva dati sul db
         bottone.setOnClickListener {
             if (password.text.toString().length<8){
                 Toast.makeText(context,"La password deve contenere almeno 8 caratteri", Toast.LENGTH_LONG).show()

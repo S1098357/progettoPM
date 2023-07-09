@@ -28,6 +28,7 @@ class PropertyChatAdapter: RecyclerView.Adapter<PropertyChatAdapter.PropertyChat
     override fun onBindViewHolder(holder: PropertyChatViewHolder, position: Int) {
         val element = propertyValues[position]
         holder.bind(element)
+        //al click passa la proprietà cliccata
         holder.itemView.setOnClickListener {
             val intent=Intent(it.context,MapsActivity::class.java)
             intent.putExtra("propertyCode",element.propertyCode)

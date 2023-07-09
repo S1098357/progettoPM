@@ -57,9 +57,11 @@ class mappa : Fragment(), OnMapReadyCallback{
         super.onViewCreated(view, savedInstanceState)
         val mapFragment :SupportMapFragment=childFragmentManager.findFragmentById(R.id.cartina) as SupportMapFragment
         binding2 = BarraBinding.inflate(layoutInflater)
+        //array dei filtri
         info=Array(6){""}
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
+            //ricerca location inserita
             override fun onQueryTextSubmit(query: String?): Boolean {
                 val location = searchView.query.toString()
                 var addressList: List<Address> = mutableListOf()
@@ -84,6 +86,7 @@ class mappa : Fragment(), OnMapReadyCallback{
                             val latLng = LatLng(address.latitude, address.longitude)
                             mMap.addMarker(MarkerOptions().position(latLng).title(location))
                             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10F))
+                            //vai su lista con le info inserite
                             val intent= Intent(context, MapsActivity::class.java)
                             intent.putExtra("info",info)
                             startActivity(intent)
@@ -99,6 +102,7 @@ class mappa : Fragment(), OnMapReadyCallback{
         })
         mapFragment.getMapAsync(this)
 
+        //bottone filtri
         button.setOnClickListener(object : View.OnClickListener {
             override fun onClick (view:View?) {
                 val layout = PopupWindow(context)
@@ -173,6 +177,7 @@ class mappa : Fragment(), OnMapReadyCallback{
                 popupMenu.menuInflater.inflate(R.menu.menu,popupMenu.menu)
                 popupMenu.setOnMenuItemClickListener {
                     val id=it.itemId
+                    //seleziona numero di coinquilini
                     when(id){
                         R.id.menu_item_1->{
                             numScelto.text=" 1"
@@ -224,6 +229,7 @@ class mappa : Fragment(), OnMapReadyCallback{
                     }
                 }
 
+                //animazione menu
                 layout.animationStyle= R.style.Animation
                 layout.height = main.height
                 layout.width = main.width

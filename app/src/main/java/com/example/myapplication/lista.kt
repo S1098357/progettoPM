@@ -54,6 +54,7 @@ class lista :Fragment() {
             makeApiRequest()
         }
 
+        //parametri da inserire nel caso ci siano filtri o meno
         if (info[1]==""){
             distanza="15000"
         }else {
@@ -75,6 +76,8 @@ class lista :Fragment() {
             ordina = info[5]
         }
 
+
+        //nel caso di esaurimento richieste API
         /*val esempio = """{
                         "elementList": [
                     {
@@ -130,6 +133,7 @@ class lista :Fragment() {
 
     }
 
+    //prende i campi inseriti su info se presenti
     override fun onAttach(context: Context) {
         super.onAttach(context)
         arguments?.getStringArray("info")?.let {
@@ -137,6 +141,7 @@ class lista :Fragment() {
         }
     }
 
+    //richiesta per accessToken
     fun makeApiRequest() {
         val grantType = "client_credentials"
         val scope = "read"
@@ -152,6 +157,7 @@ class lista :Fragment() {
             val latitude = info[3]
             val longitude = info[4]
 
+            //richiesta per la lista delle proprietà
             val requestBody = FormBody.Builder()
                 .add("center", latitude + "," + longitude)
                 .add("country", "es")
@@ -188,6 +194,7 @@ class lista :Fragment() {
 
                     val gson = Gson()
 
+                    //data class in ApiIdealista
                     val property: Property = gson.fromJson(responseBody, Property::class.java)
 
                     //val property: Property = gson.fromJson(esempio, Property::class.java)

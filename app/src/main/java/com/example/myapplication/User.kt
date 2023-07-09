@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+//data class dell'utente
 class User {
     var name: String?=null
     var email: String?=null

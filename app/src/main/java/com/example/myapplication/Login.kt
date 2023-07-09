@@ -43,6 +43,7 @@ class Login : AppCompatActivity() {
         }
     }
 
+    //logga l'utente con i dati presenti nel db
     private fun login(email: String, password:String) {
         mAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
@@ -51,7 +52,7 @@ class Login : AppCompatActivity() {
                     finish()
                     startActivity(intent)
                 } else {
-                    Toast.makeText(this@Login,"l'utente non esiste",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@Login,"l'utente non esiste o la password è errata",Toast.LENGTH_SHORT).show()
                 }
             }
     }
